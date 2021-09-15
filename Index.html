@@ -22,8 +22,6 @@
                     <span class="fs-4 m-3">Stock-System</span>
                 </a>
 
-                <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                </nav>
             </div>
 
         </header>
@@ -37,7 +35,7 @@
                             <form>
                                 <div class="mb-3">
                                     <label for="productCode" class="form-label">Select a Product Code</label>
-                                    <select class="form-select" aria-label="Default select example">
+                                    <select class="form-select" aria-label="Default select example" id="productCode">
                                         <option selected>---Select---</option>
                                         <option value="Product1">Product1</option>
                                         <option value="Product2">Product2</option>
@@ -46,7 +44,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="ItemRecieved" class="form-label">Items Received</label>
-                                    <input type="number" class="form-control" id="Items" min="0"
+                                    <input type="number" class="form-control" id="ItemsRecived" min="0"
                                         pattern="^\d*(\.\d{0,2})?$">
                                 </div>
                                 <div class="mb-3">
@@ -66,7 +64,8 @@
                             <form>
                                 <div class="mb-3">
                                     <label for="productCode" class="form-label">Select a Product Code</label>
-                                    <select class="form-select" aria-label="Default select example">
+                                    <select class="form-select" aria-label="Default select example"
+                                        id="RemoveproductCode">
                                         <option selected>---Select---</option>
                                         <option value="Product1">Product1</option>
                                         <option value="Product2">Product2</option>
@@ -90,28 +89,28 @@
                 <div class="col">
                     <div class="card mb-4 rounded-3 shadow-sm">
                         <div class="card-body">
-                            <h3 class="fs-2 text-muted">Stock Levels</h3>
+                            <h3 class="fs-2 text-muted">STOCK LEVELS</h3>
                             <div class="w-100  pt-4">
                                 <div>
-                                    <h5 class="fs-3">PRODUCT01</h5>
-                                    <p>This is some text within a card body.
-                                    </p>
+                                    <h5 class="fs-3">PRODUCT01 <span class="text-right fs-5 text-muted"
+                                            id="Product_counter_1">0</span></h5>
+                                    <span id="product1_Amount">0.00</span>
                                 </div>
 
                                 <hr>
 
                                 <div>
-                                    <h5 class="fs-3">PRODUCT02</h5>
-                                    <p>This is some text within a card body.
-                                    </p>
+                                    <h5 class="fs-3">PRODUCT02 <span class="text-right fs-5 text-muted"
+                                            id="Product_counter_2">0</span></h5>
+                                    <span id="product2_Amount">0.00</span>
                                 </div>
 
                                 <hr>
 
                                 <div>
-                                    <h5 class="fs-3">PRODUCT03</h5>
-                                    <p>This is some text within a card body.
-                                    </p>
+                                    <h5 class="fs-3">PRODUCT03 <span class="text-right fs-5 text-muted"
+                                            id="Product_counter_3">0</span></h5>
+                                    <span id="product3_Amount">0.00</span>
 
                                 </div>
                             </div>
