@@ -13,12 +13,120 @@
 
 <body>
 
-    <h1>Hello world</h1>
+    <div class="container py-3">
+        <header>
+            <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+                <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                    <img
+                        src="https://img.icons8.com/external-wanicon-lineal-wanicon/64/000000/external-stock-market-economic-crisis-wanicon-lineal-wanicon.png" />
+                    <span class="fs-4 m-3">Stock-System</span>
+                </a>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
-    </script>
-    <script src="App.js"></script>
+                <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                </nav>
+            </div>
+
+        </header>
+
+        <main>
+            <div class="row row-cols-1 row-cols-md-3 mb-3 pt-2 ">
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="fs-4">Add Stock</h3>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="productCode" class="form-label">Select a Product Code</label>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>---Select---</option>
+                                        <option value="Product1">Product1</option>
+                                        <option value="Product2">Product2</option>
+                                        <option value="Product3">Product3</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ItemRecieved" class="form-label">Items Received</label>
+                                    <input type="number" class="form-control" id="Items" min="0"
+                                        pattern="^\d*(\.\d{0,2})?$">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="UnitePrice" class="form-label">Price per item Received</label>
+                                    <input type="number" class="form-control" id="unitePrice"
+                                        pattern="^\d*(\.\d{0,2})?$">
+                                </div>
+                                <button type="submit" class=" w-100 btn btn-lg btn-primary">Add Stock</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="fs-4">Remove Stock</h3>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="productCode" class="form-label">Select a Product Code</label>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>---Select---</option>
+                                        <option value="Product1">Product1</option>
+                                        <option value="Product2">Product2</option>
+                                        <option value="Product3">Product3</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="buyerEmail" class="form-label">Buyer Email Address</label>
+                                    <input type="text" class="form-control" id="email" required
+                                        placeholder="test@test.com">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="itemsBought" class="form-label">Items Bought</label>
+                                    <input type="number" class="form-control" id="itemsBought" min="0">
+                                </div>
+                                <button type="submit" class=" w-100 btn btn-lg btn-dark">Remove Stock</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="fs-2 text-muted">Stock Levels</h3>
+                            <div class="w-100  pt-4">
+                                <div>
+                                    <h5 class="fs-3">PRODUCT01</h5>
+                                    <p>This is some text within a card body.
+                                    </p>
+                                </div>
+
+                                <hr>
+
+                                <div>
+                                    <h5 class="fs-3">PRODUCT02</h5>
+                                    <p>This is some text within a card body.
+                                    </p>
+                                </div>
+
+                                <hr>
+
+                                <div>
+                                    <h5 class="fs-3">PRODUCT03</h5>
+                                    <p>This is some text within a card body.
+                                    </p>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
+        </script>
+        <script src="App.js"></script>
 </body>
 
 </html>
