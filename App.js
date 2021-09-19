@@ -97,15 +97,15 @@ class UI {
         if (inputValue === '' || inputValue === '---Select---' || stockEmail === '' || itemBought === '') {
             alert("Please select product type or fill in all required fields ");
         } else {
-
+            let new_obj = { ...this.stockList, email: stockEmail };
             // logic
-            this.stockList.items.map((item) => {
+
+
+            new_obj.items.map((item) => {
 
                 if (inputValue === "Product1") {
-                    if (this.stockList.email != null || this.stockList.email != stockEmail || itemsBought <= item.amountOfItems) {
-                        //update email
-                        const new_obj = { ...this.stockList, email: stockEmail }
-                        // this.stockList.push(new_obj);
+                    if (new_obj.email !== null || new_obj.email != stockEmail || itemsBought > item.amountOfItems) {
+
 
                         average = item.totalStockPrices / item.amountOfItems;
 
@@ -120,12 +120,9 @@ class UI {
 
                     }
                 } else if (inputValue === 'Product2') {
-                    if (this.stockList.email != null || this.stockList.email != stockEmail || itemsBought <= item.amountOfItems) {
-                        //update email
-                        const new_obj = { ...this.stockList, email: stockEmail }
+                    if (new_obj.email !== null || new_obj.email != stockEmail || itemsBought > item.amountOfItems) {
 
                         // logic
-
                         average_2 = item.totalStockPrices / item.amountOfItems;
 
                         amount_2 = itemBought * average_2;
@@ -139,12 +136,7 @@ class UI {
 
                     }
                 } else {
-                    if (this.stockList.email != null || this.stockList.email != stockEmail || itemsBought <= item.amountOfItems) {
-                        //update email
-                        const new_obj = { ...this.stockList, email: stockEmail }
-
-                        // logic
-
+                    if (new_obj.email !== null || new_obj.email != stockEmail || itemsBought > item.amountOfItems) {
 
                         average_3 = item.totalStockPrices / item.amountOfItems;
 
@@ -235,8 +227,6 @@ function eventListeners() {
         ui.removeStock();
         ui.clearRemoveFields();
     })
-
-
 
 
 }
