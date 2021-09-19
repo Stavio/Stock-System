@@ -20,7 +20,10 @@ class UI {
         this.Product_counter_3 = document.querySelector('#Product_counter_3');
         this.product3_Amount = document.querySelector('#product3_Amount');
 
-        this.stockList = [];
+        this.stockList = {
+            email: null,
+            items: []
+        };
         this.stockID = 0;
 
 
@@ -30,6 +33,12 @@ class UI {
         this.itemReceivedInput.value = '';
         this.unitePriceInput.value = ''
 
+    }
+
+    clearRemoveFields() {
+        this.removeProductCodeInput.value = '';
+        this.emailInput.value = '';
+        this.itemsBoughtInput.value = ''
     }
 
 
@@ -44,18 +53,115 @@ class UI {
             alert("Please fill in the inputs")
         } else {
             let stockItems = {
-                id: this.stockID,
-                productType: inputValue,
-                itemsReceived: itemReceived,
-                pricePerItem: unitePrice,
                 email: null,
-                itemBought: 0,
-                totalStockPrices: 0
+                items: {
+                    id: this.stockID,
+                    productType: inputValue,
+                    itemsReceived: itemReceived,
+                    pricePerItem: unitePrice,
+                    totalStockPrices: 0,
+                    amountOfItems: 0
+                }
+
             }
 
             this.stockID++;
-            this.stockList.push(stockItems);
-            this.stockLevelContent(stockItems);
+            this.stockList.items.push(stockItems.items);
+            this.stockLevelContent(stockItems.items);
+            console.log(stockItems);
+
+        }
+    }
+
+    removeStock() {
+        const inputValue = this.removeProductCodeInput.value;
+        const stockEmail = this.emailInput.value;
+        const itemBought = parseInt(this.itemsBoughtInput.value);
+
+
+        // variables 
+        let average = 0;
+        let average_2 = 0;
+        let average_3 = 0;
+
+        let amount = 0;
+        let amount_2 = 0;
+        let amount_3 = 0;
+
+
+        let result = 0;
+        let result_2 = 0;
+        let result_3 = 0;
+
+
+        if (inputValue === '' || inputValue === '---Select---' || stockEmail === '' || itemBought === '') {
+            alert("Please select product type or fill in all required fields ");
+        } else {
+
+            // logic
+            this.stockList.items.map((item) => {
+
+                if (inputValue === "Product1") {
+                    if (this.stockList.email != null || this.stockList.email != stockEmail || itemsBought <= item.amountOfItems) {
+                        //update email
+                        const new_obj = { ...this.stockList, email: stockEmail }
+                        // this.stockList.push(new_obj);
+
+                        average = item.totalStockPrices / item.amountOfItems;
+
+                        amount = itemBought * average;
+                        result = item.totalStockPrices - amount;
+                        this.product1_Amount.textContent = parseFloat(result).toFixed(2);
+                        this.Product_counter_1.textContent = item.amountOfItems - itemBought;
+
+
+                    } else {
+                        alert('You have already bought once');
+
+                    }
+                } else if (inputValue === 'Product2') {
+                    if (this.stockList.email != null || this.stockList.email != stockEmail || itemsBought <= item.amountOfItems) {
+                        //update email
+                        const new_obj = { ...this.stockList, email: stockEmail }
+
+                        // logic
+
+                        average_2 = item.totalStockPrices / item.amountOfItems;
+
+                        amount_2 = itemBought * average_2;
+                        result_2 = item.totalStockPrices - amount_2;
+                        this.product2_Amount.textContent = parseFloat(result_2).toFixed(2);
+                        this.Product_counter_2.textContent = item.amountOfItems - itemBought;
+
+
+                    } else {
+                        alert('You have already bought once');
+
+                    }
+                } else {
+                    if (this.stockList.email != null || this.stockList.email != stockEmail || itemsBought <= item.amountOfItems) {
+                        //update email
+                        const new_obj = { ...this.stockList, email: stockEmail }
+
+                        // logic
+
+
+                        average_3 = item.totalStockPrices / item.amountOfItems;
+
+                        amount_3 = itemBought * average_3;
+                        result_3 = item.totalStockPrices - amount_3;
+                        this.product3_Amount.textContent = parseFloat(result_3).toFixed(2);
+                        this.Product_counter_3.textContent = item.amountOfItems - itemBought;
+
+                    } else {
+                        alert('You have already bought once');
+
+                    }
+                }
+
+            });
+
+
         }
     }
 
@@ -71,7 +177,7 @@ class UI {
         let sum_2 = 0;
         let sum_3 = 0;
 
-        this.stockList.map((stock) => {
+        this.stockList.items.map((stock) => {
             let totalStock = stock.pricePerItem * stock.itemsReceived;
 
             if (stock.productType === 'Product1') {
@@ -79,7 +185,8 @@ class UI {
                 sum += stock.totalStockPrices;
                 productLen += stock.itemsReceived;
                 this.product1_Amount.textContent = parseFloat(sum).toFixed(2);
-                this.Product_counter_1.textContent = productLen;
+                stock.amountOfItems = productLen;
+                this.Product_counter_1.textContent = stock.amountOfItems;
 
             } else if (stock.productType === 'Product2') {
 
@@ -87,7 +194,8 @@ class UI {
                 sum_2 += stock.totalStockPrices;
                 productLen2 += stock.itemsReceived;
                 this.product2_Amount.textContent = parseFloat(sum_2).toFixed(2);
-                this.Product_counter_2.textContent = productLen2;
+                stock.amountOfItems = productLen = productLen2;
+                this.Product_counter_2.textContent = stock.amountOfItems;
 
             } else {
 
@@ -95,7 +203,8 @@ class UI {
                 sum_3 += stock.totalStockPrices;
                 productLen3 += stock.itemsReceived;
                 this.product3_Amount.textContent = parseFloat(sum_3).toFixed(2);
-                this.Product_counter_3.textContent = productLen3;
+                stock.amountOfItems = productLen = productLen3;
+                this.Product_counter_3.textContent = stock.amountOfItems;
             }
 
         })
@@ -122,6 +231,9 @@ function eventListeners() {
     // remove stock form
     removeStockForm.addEventListener('submit', function (event) {
         event.preventDefault();
+
+        ui.removeStock();
+        ui.clearRemoveFields();
     })
 
 
