@@ -27,10 +27,7 @@ var UI = /** @class */ (function () {
         this.product2_Amount = document.querySelector('#product2_Amount');
         this.Product_counter_3 = document.querySelector('#Product_counter_3');
         this.product3_Amount = document.querySelector('#product3_Amount');
-        this.stockList = {
-            email: null,
-            items: []
-        };
+        this.stockList = [];
         this.stockID = 0;
     }
     UI.prototype.clearAddStock = function () {
@@ -66,16 +63,15 @@ var UI = /** @class */ (function () {
                 }
             };
             this.stockID++;
-            this.stockList.items.push(stockItems.items);
+            this.stockList.push(stockItems.items);
             this.stockLevelContent();
-            console.log(stockItems);
         }
     };
     UI.prototype.removeStock = function () {
         var _this = this;
         var inputValue = this.removeProductCodeInput.value;
         var stockEmail = this.emailInput.value;
-        var itemBought = parseInt(this.itemsBoughtInput.value);
+        var itemBought = this.itemsBoughtInput.value;
         // variables 
         var average = 0;
         var average_2 = 0;
@@ -83,7 +79,7 @@ var UI = /** @class */ (function () {
         var amount = 0;
         var amount_2 = 0;
         var amount_3 = 0;
-        var result;
+        var result = 0;
         var result_2 = 0;
         var result_3 = 0;
         if (inputValue === '' || inputValue === '---Select---' || stockEmail === '' || itemBought === 0) {
@@ -98,8 +94,14 @@ var UI = /** @class */ (function () {
                         average = item.totalStockPrices / item.amountOfItems;
                         amount = itemBought * average;
                         result = item.totalStockPrices - amount;
-                        _this.product1_Amount.textContent = result.toFixed(2);
-                        _this.Product_counter_1.textContent = item.amountOfItems - itemBought;
+                        var amountItemStore = item.amountOfItems - itemBought;
+                        if (amountItemStore > 0) {
+                            _this.Product_counter_1.textContent = amountItemStore;
+                            _this.product1_Amount.textContent = result.toFixed(2);
+                        }
+                        else {
+                            alert('You can not buy more then ' + item.amountOfItems);
+                        }
                     }
                     else {
                         alert('You have already bought once');
@@ -111,8 +113,14 @@ var UI = /** @class */ (function () {
                         average_2 = item.totalStockPrices / item.amountOfItems;
                         amount_2 = itemBought * average_2;
                         result_2 = item.totalStockPrices - amount_2;
-                        _this.product2_Amount.textContent = (result_2).toFixed(2);
-                        _this.Product_counter_2.textContent = item.amountOfItems - itemBought;
+                        var amountItemStore_2 = item.amountOfItems - itemBought;
+                        if (amountItemStore_2 > 0) {
+                            _this.product2_Amount.textContent = (result_2).toFixed(2);
+                            _this.Product_counter_2.textContent = amountItemStore_2;
+                        }
+                        else {
+                            alert('You can not buy more then ' + item.amountOfItems);
+                        }
                     }
                     else {
                         alert('You have already bought once');
@@ -123,8 +131,14 @@ var UI = /** @class */ (function () {
                         average_3 = item.totalStockPrices / item.amountOfItems;
                         amount_3 = itemBought * average_3;
                         result_3 = item.totalStockPrices - amount_3;
-                        _this.product3_Amount.textContent = (result_3).toFixed(2);
-                        _this.Product_counter_3.textContent = item.amountOfItems - itemBought;
+                        var amountItemStore_3 = item.amountOfItems - itemBought;
+                        if (amountItemStore_3 > 0) {
+                            _this.product3_Amount.textContent = (result_3).toFixed(2);
+                            _this.Product_counter_3.textContent = amountItemStore_3;
+                        }
+                        else {
+                            alert('You can not buy more then ' + item.amountOfItems);
+                        }
                     }
                     else {
                         alert('You have already bought once');
@@ -139,10 +153,10 @@ var UI = /** @class */ (function () {
         var productLen = 0;
         var productLen2 = 0;
         var productLen3 = 0;
-        var sum;
-        var sum_2;
-        var sum_3;
-        this.stockList.items.map(function (stock) {
+        var sum = 0;
+        var sum_2 = 0;
+        var sum_3 = 0;
+        this.stockList.map(function (stock) {
             var totalStock = stock.pricePerItem * stock.itemsReceived;
             if (stock.productType === 'Product1') {
                 stock.totalStockPrices = totalStock;

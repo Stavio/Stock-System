@@ -1,8 +1,8 @@
 class UI {
+
     productCodeInput: any;
     itemReceivedInput: any
     unitePriceInput: any
-
 
     removeProductCodeInput: any
     emailInput: any
@@ -19,7 +19,8 @@ class UI {
     product3_Amount: any
     stockList: any
 
-    stockID
+    stockID: number
+
     constructor() {
         // Add stock elements
         this.productCodeInput = document.querySelector('#productCode');
@@ -41,10 +42,7 @@ class UI {
         this.Product_counter_3 = document.querySelector('#Product_counter_3');
         this.product3_Amount = document.querySelector('#product3_Amount');
 
-        this.stockList = {
-            email: null,
-            items: []
-        };
+        this.stockList = [];
         this.stockID = 0;
 
 
@@ -52,14 +50,14 @@ class UI {
     clearAddStock() {
         this.productCodeInput.value = '';
         this.itemReceivedInput.value = '';
-        this.unitePriceInput.value = ''
+        this.unitePriceInput.value = '';
 
     }
 
     clearRemoveFields() {
         this.removeProductCodeInput.value = '';
         this.emailInput.value = '';
-        this.itemsBoughtInput.value = ''
+        this.itemsBoughtInput.value = '';
     }
 
 
@@ -83,21 +81,19 @@ class UI {
                     totalStockPrices: 0,
                     amountOfItems: 0
                 }
-
             }
 
             this.stockID++;
-            this.stockList.items.push(stockItems.items);
+            this.stockList.push(stockItems.items);
             this.stockLevelContent();
-            console.log(stockItems);
-
         }
     }
+
 
     removeStock() {
         const inputValue = this.removeProductCodeInput.value;
         const stockEmail = this.emailInput.value;
-        const itemBought: number = parseInt(this.itemsBoughtInput.value);
+        const itemBought: number = this.itemsBoughtInput.value;
 
 
         // variables 
@@ -110,9 +106,10 @@ class UI {
         let amount_3: number = 0;
 
 
-        let result: number;
+        let result: number = 0;
         let result_2: number = 0;
         let result_3: number = 0;
+
 
 
         if (inputValue === '' || inputValue === '---Select---' || stockEmail === '' || itemBought === 0) {
@@ -132,10 +129,13 @@ class UI {
 
                         amount = itemBought * average;
                         result = item.totalStockPrices - amount;
-
-                        this.product1_Amount.textContent = result.toFixed(2);
-                        this.Product_counter_1.textContent = item.amountOfItems - itemBought;
-
+                        let amountItemStore: number = item.amountOfItems - itemBought;
+                        if (amountItemStore! > 0) {
+                            this.Product_counter_1.textContent = amountItemStore;
+                            this.product1_Amount.textContent = result.toFixed(2);
+                        } else {
+                            alert('You can not buy more then ' + item.amountOfItems)
+                        }
 
                     } else {
                         alert('You have already bought once');
@@ -149,9 +149,16 @@ class UI {
 
                         amount_2 = itemBought * average_2;
                         result_2 = item.totalStockPrices - amount_2;
-                        this.product2_Amount.textContent = (result_2).toFixed(2);
-                        this.Product_counter_2.textContent = item.amountOfItems - itemBought;
 
+                        let amountItemStore_2: number = item.amountOfItems - itemBought
+
+                        if (amountItemStore_2! > 0) {
+                            this.product2_Amount.textContent = (result_2).toFixed(2);
+                            this.Product_counter_2.textContent = amountItemStore_2;
+                        } else {
+                            alert('You can not buy more then ' + item.amountOfItems)
+
+                        }
 
                     } else {
                         alert('You have already bought once');
@@ -164,8 +171,16 @@ class UI {
 
                         amount_3 = itemBought * average_3;
                         result_3 = item.totalStockPrices - amount_3;
-                        this.product3_Amount.textContent = (result_3).toFixed(2);
-                        this.Product_counter_3.textContent = item.amountOfItems - itemBought;
+                        let amountItemStore_3: number = item.amountOfItems - itemBought
+
+                        if (amountItemStore_3! > 0) {
+                            this.product3_Amount.textContent = (result_3).toFixed(2);
+                            this.Product_counter_3.textContent = amountItemStore_3;
+                        } else {
+                            alert('You can not buy more then ' + item.amountOfItems)
+
+                        }
+
 
                     } else {
                         alert('You have already bought once');
@@ -183,15 +198,15 @@ class UI {
     // display content Stock Level
     stockLevelContent() {
 
-        let productLen = 0;
-        let productLen2 = 0;
-        let productLen3 = 0;
+        let productLen: number = 0;
+        let productLen2: number = 0;
+        let productLen3: number = 0;
 
-        let sum: number;
-        let sum_2: number
-        let sum_3: number;
+        let sum: number = 0;
+        let sum_2: number = 0
+        let sum_3: number = 0;
 
-        this.stockList.items.map((stock: any) => {
+        this.stockList.map((stock: any) => {
             let totalStock = stock.pricePerItem * stock.itemsReceived;
 
             if (stock.productType === 'Product1') {
@@ -226,6 +241,7 @@ class UI {
     }
 
 }
+
 
 function eventListeners() {
     const addStockForm = document.querySelector('#addStockForm');
